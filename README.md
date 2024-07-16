@@ -83,4 +83,7 @@ The current parser versions for UH30 and UH50 are to find in the "old" folder:
 ## Testcases
 We already provided some [testcases](./testing/testCaseData.json) for all devices. These testcases can and should be completed with further test cases.
 Testcases can be used for end-to-end testing. Also consider unit testing.
+
+### Github actions
+Optional: Automated testing pipeline on new commits.
  
