@@ -24,7 +24,7 @@ module.exports = function (payload, meta) {
 ```
 
 #### Payload argument
-The payload contaisn the actual hex string (s. raw in image below)
+The payload contans the actual hex string (s. raw in image below)
 #### Meta argument
 Contains additional information about the packet (e.g source_time of the packet), which are used by Niotix in the further pipeline. Can be ignored for the parser, but must be in the argument list of the entry function:
 
@@ -51,11 +51,11 @@ Every device type has its own elvaco LoRaWAN module.
 ## Parsing challenges
 Most of the parsing is simple transformation from hex to human readable format. But there are more challenging issues included:
 ### Error Flags
-Error flags can easily be transformed to an integer. But in order to transform this into human readable format, its necessary to read the active error bites and add the according error messages provided by the producer of the meters (UH30 / UH50 ... --> not part of the elvaco module / manual).
+Error flags can easily be transformed to an integer. But in order to transform this into human readable format, its necessary to read the active error bits and add the according error messages provided by the producer of the meters (UH30 / UH50 ... --> not part of the elvaco module / manual).
 
 [errorFlags.xlsx](./docs/ErrorFlags.xlsxdocs)
 
-Several errors can occur on the same time. Which final format to chose for the errorflags. Also see meter communications error below. 
+Several errors can occur on the same time. Which final format to chose for the errorflags? Also see meter communications error below. 
 
 ### Unit Conversion Testing
 Measurements can be send in different units. But idealy they´re parsed in a consistent unit over all packets and device types.
@@ -83,3 +83,4 @@ The current parser versions for UH30 and UH50 are to find in the "old" folder:
 ## Testcases
 We already provided some [testcases](./testing/testCaseData.json) for all devices. These testcases can and should be completed with further test cases.
 Testcases can be used for end-to-end testing. Also consider unit testing.
+ 
