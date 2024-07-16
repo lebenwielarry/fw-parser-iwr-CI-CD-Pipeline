@@ -1,6 +1,40 @@
 # Distant Heat Hex-Parser
 Repository for collaborative development and testing of distant heat hex code parser.
 
+## Instructions
+Niotix only excepts node.js. Therefore no additional packets can be used.
+### Objectives
+The goal is to develop a complete and well tested hex-string to json-object parser for district heat meter packets sent via LoRaWAN, that can be implemented in the running system. 4 different device types, with different LoRaWAN modules exist ([see Device Types and Elvaco Modules](##Device-Types-and-Elvaco-Modules)). 
+
+#### Objective List
+- 4 device types
+- several payload styles
+- error parsing 
+- meter communication error
+- unit convertion
+- automated testing (unit convertion, meter-communication-error, negative-values)
+- plausibility testing
+
+### Entry function
+Niotix expects the following entry function (already implemented in all parser fiiles):
+```js
+module.exports = function (payload, meta) {
+  return dict();
+};
+```
+
+#### Payload argument
+The payload contaisn the actual hex string (s. raw in image below)
+#### Meta argument
+Contains additional information about the packet (e.g source_time of the packet), which are used by Niotix in the further pipeline. Can be ignored for the parser, but must be in the argument list of the entry function:
+
+![alt text](image.png)
+
+*raw = payload*
+
+
+
+
 ## Device Types and Elvaco Modules
 The Parser must be developed for 4 different device types:
 - Landis & Gyr ULTRAHEAT T330 (UH30) 
