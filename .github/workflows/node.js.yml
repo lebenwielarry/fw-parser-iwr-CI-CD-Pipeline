@@ -1,0 +1,54 @@
+name: Branch-specific Node.js CI Pipeline
+
+on:
+  push:
+    branches:
+      - UH50_Burak
+      - sharky
+      - UH30_dev
+  pull_request:
+    branches:
+      - UH50_Burak
+      - sharky
+      - UH30_dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [17.9.0]  # Nutze gezielt die Version 17.9.0, wie in deiner lokalen Umgebung
+        # Bei Bedarf weitere Versionen hinzufügen, z.B.: [16.x, 18.x]
+
+    steps:
+      # Schritt 1: Repository auschecken
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Schritt 2: Node.js-Version festlegen und npm-Cache verwenden
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      # Schritt 3: Abhängigkeiten installieren
+      - name: Install dependencies
+        run: npm ci
+
+      # Schritt 4: Build-Schritt (optional)
+      - name: Build project
+        run: npm run build --if-present
+
+      # Schritt 5: Tests ausführen
+      - name: Run tests
+        run: npm test
+
+      # Schritt 6: Testbericht speichern
+      - name: Store test report
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-report
+          path: ./test-results  # Passe den Pfad an, falls der Testbericht woanders gespeichert wird
