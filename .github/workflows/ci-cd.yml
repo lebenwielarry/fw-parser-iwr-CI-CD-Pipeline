@@ -1,0 +1,56 @@
+name: Branch-specific CI Pipeline
+
+on:
+  push:
+    branches:
+      - UH50_Burak
+      - sharky
+      - UH30_dev
+  pull_request:
+    branches:
+      - UH50_Burak
+      - sharky
+      - UH30_dev
+  workflow_dispatch: 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Schritt 1: Repository auschecken
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Schritt 2: Node.js-Version festlegen
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '17.9.0'  # Passe die Node.js-Version an, falls nötig
+
+      # Schritt 3: Abhängigkeiten cachen
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Schritt 4: Abhängigkeiten installieren
+      - name: Install dependencies
+        run: |
+          npm install
+
+      # Schritt 5: Tests ausführen
+      - name: Run tests
+        run: |
+          npm test
+
+      # Schritt 6: Testbericht speichern
+      - name: Store test report
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-report
+          path: ./test-results  # Pfad anpassen, wo die Testberichte gespeichert werden
