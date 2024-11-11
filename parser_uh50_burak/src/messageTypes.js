@@ -16,7 +16,6 @@ function parseStandardMessage(payload) {
     let energyPrefix = payload.slice(currentIndex, currentIndex + 4);
     let energyValueRaw, energyValueTransformed, scale, check;
     
-
     if (energyPrefix === '0CFB') { // Handles 6-digit prefixes (3 bytes)
         energyPrefix = payload.slice(currentIndex, currentIndex + 6);
         currentIndex += 6; // Move past the 3-byte prefix (6 hex characters)
