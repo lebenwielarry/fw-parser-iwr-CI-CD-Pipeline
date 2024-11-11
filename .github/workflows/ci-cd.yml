@@ -11,6 +11,8 @@ on:
       - UH50_Burak
       - sharky
       - UH30_dev
+    paths:
+      - ".github/workflows/ci-cd.yml"
 
 jobs:
   build:
