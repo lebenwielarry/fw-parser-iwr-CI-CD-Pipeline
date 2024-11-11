@@ -32,9 +32,6 @@ function parseStandardMessage(payload) {
         result.energy = energyValueTransformed; 
         currentIndex += 8; // Move past the energy field
     }
-
-
-
     
     result.energyPrefix = energyPrefix;
     // Volume Field (adjusted index based on the length of the energy field)
